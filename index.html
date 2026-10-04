@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A small note, just for you</title>
+<meta name="theme-color" content="#120d1f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#120d1f; --plum:#2a1840; --rose:#e8a2b8; --lav:#b9a4e8; --moon:#f3e9f0; --dim:#c9bcd6;
+  --hand:'Caveat','Segoe Script','Bradley Hand',cursive;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--moon);font-family:var(--serif);font-size:1.28rem;line-height:1.75;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(70% 50% at 15% 10%,rgba(185,164,232,.22),transparent 70%),
+  radial-gradient(60% 50% at 90% 55%,rgba(232,162,184,.16),transparent 70%),
+  radial-gradient(80% 60% at 40% 100%,rgba(90,50,140,.35),transparent 70%),var(--ink)}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+body.locked{overflow:hidden}
+section{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:12svh 1.6rem;text-align:center;position:relative}
+.wrap{max-width:34rem;width:100%}
+h1,h2{font-weight:400;line-height:1.15}
+.hand{font-family:var(--hand);font-weight:500;color:var(--rose);text-shadow:0 0 22px rgba(232,162,184,.45)}
+h1.hand{font-size:clamp(3rem,13vw,4.8rem)}
+h2{font-family:var(--hand);font-weight:600;font-size:clamp(2.4rem,10vw,3.4rem);color:var(--rose);margin-bottom:1.6rem;text-shadow:0 0 22px rgba(232,162,184,.4)}
+p{margin-bottom:1.15rem}
+.soft{color:var(--dim);font-style:italic}
+/* the two stars: the memorable moment */
+.pair{position:relative;width:min(80vw,22rem);height:7rem;margin:0 auto 1.5rem}
+.pair svg{width:100%;height:100%;overflow:visible}
+.pair .line{stroke:var(--lav);stroke-width:1;stroke-dasharray:4 6;fill:none;opacity:.55}
+.pair .s{fill:var(--moon);filter:drop-shadow(0 0 7px var(--rose)) drop-shadow(0 0 16px var(--lav))}
+.pair .a{animation:drift1 9s ease-in-out infinite alternate}
+.pair .b{animation:drift2 11s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(18px,-8px)}}
+@keyframes drift2{to{transform:translate(-18px,8px)}}
+.sub{font-size:1.35rem;color:var(--dim);margin:1.2rem 0 2.4rem;font-style:italic}
+/* buttons */
+.btn{font:inherit;font-family:var(--hand);font-size:1.7rem;font-weight:600;color:var(--moon);cursor:pointer;padding:.6rem 2rem;border-radius:999px;border:1px solid rgba(232,162,184,.55);background:rgba(232,162,184,.1);transition:transform .25s,box-shadow .25s,background .25s;min-height:48px}
+.btn.glow{box-shadow:0 0 24px rgba(232,162,184,.35),inset 0 0 14px rgba(232,162,184,.15);animation:breathe 3.6s ease-in-out infinite}
+.btn:hover,.btn:active{transform:translateY(-2px);background:rgba(232,162,184,.2)}
+.btn:focus-visible,.music:focus-visible{outline:2px solid var(--lav);outline-offset:4px}
+@keyframes breathe{50%{box-shadow:0 0 38px rgba(232,162,184,.55),inset 0 0 18px rgba(232,162,184,.25)}}
+/* cards */
+.card{position:relative;overflow:hidden;padding:2.2rem 1.6rem;border-radius:1.6rem;background:linear-gradient(160deg,rgba(60,35,95,.55),rgba(30,18,50,.6));border:1px solid rgba(185,164,232,.22);box-shadow:0 20px 60px rgba(0,0,0,.35),0 0 50px rgba(185,164,232,.08);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.card.warm{border-color:rgba(232,162,184,.35);box-shadow:0 20px 60px rgba(0,0,0,.35),0 0 60px rgba(232,162,184,.14)}
+.card p{position:relative;z-index:1}
+.card .miniheart{position:absolute;bottom:-1rem;color:var(--rose);opacity:0;animation:rise 9s linear infinite;pointer-events:none}
+@keyframes rise{0%{transform:translateY(0) scale(.7);opacity:0}15%{opacity:.35}100%{transform:translateY(-16rem) scale(1.1);opacity:0}}
+.list{list-style:none;margin:1.2rem 0 1.6rem;color:var(--rose);font-family:var(--hand);font-size:1.7rem;line-height:1.5}
+/* polaroid (optional) */
+.polaroid{display:none;margin:0 auto 2rem;width:min(70vw,15rem);padding:.7rem .7rem 2.2rem;background:var(--moon);border-radius:4px;transform:rotate(-3deg);box-shadow:0 18px 40px rgba(0,0,0,.5);position:relative}
+.polaroid img{width:100%;aspect-ratio:1;object-fit:cover;display:block;border-radius:2px}
+.polaroid span{position:absolute;bottom:.55rem;left:0;right:0;font-family:var(--hand);font-size:1.4rem;color:#4a3262}
+/* glowing heart */
+.bigheart{width:84px;height:84px;margin:0 auto 2rem;animation:beat 4.5s ease-in-out infinite;filter:drop-shadow(0 0 18px rgba(232,162,184,.8))}
+@keyframes beat{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.14);opacity:1}}
+.final h2{font-size:clamp(2.8rem,12vw,4.2rem)}
+.choices{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:2rem}
+.reply{margin-top:2rem;min-height:9rem}
+.reply .card{animation:fadein 1.2s ease both}
+.reply p:last-child{margin:0}
+footer{padding:5rem 1.6rem calc(5rem + env(safe-area-inset-bottom));text-align:center;font-family:var(--hand);font-size:1.5rem;color:var(--dim);max-width:34rem;margin:0 auto}
+/* reveal */
+.rv{opacity:0;transform:translateY(14px);filter:blur(3px);transition:opacity 1.4s ease,transform 1.4s ease,filter 1.4s ease}
+.rv.in{opacity:1;transform:none;filter:none}
+.rv.d1{transition-delay:.35s}.rv.d2{transition-delay:.7s}.rv.d3{transition-delay:1.05s}.rv.d4{transition-delay:1.4s}
+@keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#story{display:none}
+#story.open{display:block;animation:fadein 1.6s ease both}
+/* music */
+.music{position:fixed;top:max(.9rem,env(safe-area-inset-top));right:.9rem;z-index:10;width:46px;height:46px;border-radius:50%;border:1px solid rgba(185,164,232,.4);background:rgba(30,18,50,.65);color:var(--moon);font-size:1.15rem;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.music[aria-pressed="true"]{box-shadow:0 0 18px rgba(185,164,232,.6)}
+@media (max-width:480px){
+  body{font-size:1.15rem;line-height:1.7}
+  section{padding:10svh 1.25rem}
+  .card{padding:1.8rem 1.25rem}
+  .choices{flex-direction:column;align-items:stretch}
+  .choices .btn{width:100%;padding:.7rem 1rem}
+  .list{font-size:1.5rem}
+  footer{font-size:1.3rem}
+}
+@media (max-height:520px){section{min-height:auto;padding:14vh 1.25rem}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body class="locked">
+<canvas id="sky" aria-hidden="true"></canvas>
+<button class="music" id="music" aria-label="Play soft background music" aria-pressed="false" title="Soft music (off)">♪</button>
+
+<!-- 1. LANDING -->
+<section id="landing">
+  <div class="wrap">
+    <div class="pair" aria-hidden="true">
+      <svg viewBox="0 0 300 100">
+        <path class="line" d="M52 58 Q150 8 248 44"/>
+        <g class="a"><circle class="s" cx="52" cy="58" r="4.5"/></g>
+        <g class="b"><circle class="s" cx="248" cy="44" r="4.5"/></g>
+      </svg>
+    </div>
+    <h1 class="hand">Hey <span class="nm">Keerthana</span> ❤️</h1>
+    <p class="sub">I made this little place just to tell you something...</p>
+    <button class="btn glow" id="open" aria-label="Open the message">Open this for me ❤️</button>
+  </div>
+</section>
+
+<main id="story">
+
+<!-- 2. APOLOGY -->
+<section id="sorry">
+  <div class="wrap">
+    <h2 class="rv">I'm Sorry.</h2>
+    <p class="rv d1">I've been thinking about what happened, and I honestly feel bad that I asked you about caste.</p>
+    <p class="rv d2">I wasn't asking because I wanted to judge you, or because I think caste defines a person.</p>
+    <p class="rv d3">I asked because I was thinking too far ahead about my family and what they might say. But I understand that it may have made you feel like I was judging you before I even properly got to know you.</p>
+    <p class="rv d4">And honestly... I should have taken more time to know <em>you</em> first.</p>
+    <p class="hand rv d4" style="font-size:2.4rem;margin-top:1rem">I'm sorry.</p>
+  </div>
+</section>
+
+<!-- 3. WHAT I REALLY MEANT -->
+<section>
+  <div class="wrap">
+    <div class="card warm rv" id="meant">
+      <p>I didn't want to hurt you.</p>
+      <p>I didn't want to make you feel less.</p>
+      <p>I didn't want one question to make you feel that I see you differently.</p>
+      <p class="soft">I just got scared about something that was much too far ahead.</p>
+      <p>Maybe I should have simply enjoyed getting to know you first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- optional photo + 4. PERSONAL -->
+<section>
+  <div class="wrap">
+    <figure class="polaroid rv" id="polaroid"><img id="photo" alt="A memory we share" loading="lazy"><span id="cap">a little memory</span></figure>
+    <h2 class="rv">One thing I want you to know...</h2>
+    <p class="rv d1">I really like talking to you.</p>
+    <p class="rv d2">Even though we've known each other only a short time, our conversations have become something I look forward to.</p>
+    <p class="rv d3">But I don't want to rush anything. I want to know you properly.</p>
+    <ul class="list rv d3"><li>Your dreams.</li><li>Your likes.</li><li>Your dislikes.</li><li>Your silly moments.</li><li>Your serious moments.</li><li>The person you really are.</li></ul>
+    <p class="rv d4">And I want you to know me too.</p>
+    <p class="soft rv d4">No pressure. No expectations.<br>Just two people getting to know each other.</p>
+  </div>
+</section>
+
+<!-- 5. COMFORT -->
+<section>
+  <div class="wrap">
+    <div class="card rv" id="comfort">
+      <p>You don't have to forgive me immediately.</p>
+      <p>You don't have to reply immediately.</p>
+      <p>You don't even have to say anything if you don't feel like it.</p>
+      <p class="soft">I just wanted you to know that I understand why you were hurt.</p>
+      <p class="hand" style="font-size:2rem;margin:0">And I'm genuinely sorry.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5b. CARING -->
+<section>
+  <div class="wrap">
+    <h2 class="rv">And I hope you're okay...</h2>
+    <p class="rv d1">I hope you've eaten well today. I hope you got some rest, and I hope something made you smile.</p>
+    <p class="rv d2">Because you matter to me, Keerthana. Your feelings matter to me. Even more than being right, I'd rather you feel respected and cared for.</p>
+    <p class="soft rv d3">Whatever you're feeling right now, it's completely okay.<br>I'll be here with patience, not pressure.</p>
+  </div>
+</section>
+
+<!-- 6. ROMANTIC MOMENT -->
+<section>
+  <div class="wrap">
+    <svg class="bigheart rv" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3b4c8"/><stop offset="1" stop-color="#b9a4e8"/></linearGradient></defs><path fill="url(#g)" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.7 4.8 6.2 4.5c2-.2 3.7.8 5.8 3 2.1-2.2 3.8-3.2 5.8-3 3.5.3 5.3 3.9 3.8 7.3C19.500 16.400 12 21 12 21z"/></svg>
+    <p class="rv d1" style="font-size:1.5rem">Maybe our story started in a game...<br>but I don't want to treat your feelings like a game.</p>
+    <p class="hand rv d3" style="font-size:2.2rem;margin-top:1.4rem">I'd rather take things slowly and honestly.</p>
+  </div>
+</section>
+
+<!-- 7. FINAL -->
+<section class="final">
+  <div class="wrap">
+    <h2 class="rv">Will you forgive me? ❤️</h2>
+    <p class="soft rv d1">Only when your heart feels ready.<br>No pressure at all.</p>
+    <p class="rv d2" style="font-size:1.5rem">I'll always care about how you feel.<br>Whenever you want to talk, I'll be right here.</p>
+    <div class="choices rv d3">
+      <button class="btn" data-r="ok" aria-label="Yes, I forgive you">Yes, I forgive you ❤️</button>
+      <button class="btn" data-r="time" aria-label="Give me some time">Give me some time</button>
+    </div>
+    <div class="reply" id="reply" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 8. FOOTER -->
+<footer class="rv">Made with a little courage, a lot of honesty, and an apology from Dharnan ❤️</footer>
+</main>
+
+<script>
+/* ===== EDIT THESE ===== */
+const HER_NAME = "Keerthana";   // or share the link as index.html?name=Priya
+const PHOTO_SRC = "";            // optional: "photo.jpg" or a data: URL
+const PHOTO_CAPTION = "a little memory";
+/* ====================== */
+const name = new URLSearchParams(location.search).get('name') || HER_NAME;
+document.querySelectorAll('.nm').forEach(e=>e.textContent=name);
+if(PHOTO_SRC){const p=document.getElementById('polaroid');document.getElementById('photo').src=PHOTO_SRC;document.getElementById('cap').textContent=PHOTO_CAPTION;p.style.display='block'}
+
+/* floating sky: stars + tiny hearts */
+const cv=document.getElementById('sky'),cx=cv.getContext('2d');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let W,H,dpr,parts=[];
+function size(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0)}
+function heart(x,y,s,a,col){cx.save();cx.globalAlpha=a;cx.fillStyle=col;cx.translate(x,y);cx.scale(s,s);cx.beginPath();cx.moveTo(0,.3);cx.bezierCurveTo(-1,-.5,-2,.6,0,1.8);cx.bezierCurveTo(2,.6,1,-.5,0,.3);cx.fill();cx.restore()}
+function make(){const n=innerWidth<600?46:80;parts=[];for(let i=0;i<n;i++){const h=i%7===0;parts.push({h,x:Math.random()*W,y:Math.random()*H,r:h?4+Math.random()*4:Math.random()*1.4+.3,v:h?.12+Math.random()*.2:.02+Math.random()*.05,t:Math.random()*6.28,s:.01+Math.random()*.02,c:Math.random()<.5?'#e8a2b8':'#b9a4e8'})}}
+function tick(){cx.clearRect(0,0,W,H);for(const p of parts){p.t+=p.s;const a=.35+.35*Math.sin(p.t*3);
+  if(p.h){p.y-=p.v;p.x+=Math.sin(p.t)*.25;if(p.y<-20){p.y=H+20;p.x=Math.random()*W}heart(p.x,p.y,p.r,a*.7,p.c)}
+  else{cx.globalAlpha=a;cx.fillStyle='#f3e9f0';cx.shadowColor=p.c;cx.shadowBlur=p.r*5;cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.28);cx.fill();cx.shadowBlur=0}}
+  cx.globalAlpha=1;if(!reduce&&!document.hidden)requestAnimationFrame(tick)}
+size();make();tick();
+addEventListener('resize',()=>{size();make()});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!reduce)tick()});
+
+/* hearts inside the soft cards */
+document.querySelectorAll('#meant,#comfort').forEach(c=>{for(let i=0;i<6;i++){const h=document.createElement('span');h.className='miniheart';h.textContent='♥';h.setAttribute('aria-hidden','true');h.style.left=(8+i*16)+'%';h.style.fontSize=(.8+Math.random()*.7)+'rem';h.style.animationDelay=(i*1.5)+'s';c.appendChild(h)}});
+
+/* reveal on scroll */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.25});
+document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+
+/* open */
+document.getElementById('open').addEventListener('click',()=>{
+  document.body.classList.remove('locked');
+  const s=document.getElementById('story');s.classList.add('open');
+  setTimeout(()=>document.getElementById('sorry').scrollIntoView({behavior:'smooth'}),150);
+});
+
+/* gentle replies */
+const replies={
+  ok:`<div class="card warm"><p class="hand" style="font-size:2.2rem">Thank you, Keerthana ❤️</p><p>That means more to me than I can say.</p><p>Let's forget the awkwardness and just talk like we used to. No more overthinking.</p><p class="soft">I promise to be more thoughtful, and to take care of your feelings.</p></div>`,
+  time:`<div class="card"><p class="hand" style="font-size:2.2rem">Of course.</p><p>Take all the time you need.</p><p class="soft">I'll respect that, and I'll still be thinking of you kindly. ❤️</p></div>`};
+document.querySelectorAll('[data-r]').forEach(b=>b.addEventListener('click',()=>{
+  const r=document.getElementById('reply');r.innerHTML=replies[b.dataset.r];
+  r.scrollIntoView({behavior:'smooth',block:'center'})}));
+
+/* music: soft generated pad, only after a tap, no files, no autoplay */
+let ac,master,timer,on=false;
+const chords=[[196,246.9,293.7],[174.6,220,261.6],[164.8,196,246.9],[196,246.9,329.6]];
+function pad(i){const t=ac.currentTime,c=chords[i%chords.length];
+  c.forEach((f,k)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;o.detune.value=(k-1)*4;
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.05,t+3);g.gain.linearRampToValueAtTime(0,t+7.5);
+    o.connect(g);g.connect(master);o.start(t);o.stop(t+8)})}
+const mb=document.getElementById('music');
+mb.addEventListener('click',()=>{
+  if(!ac){const A=window.AudioContext||window.webkitAudioContext;ac=new A();master=ac.createGain();master.gain.value=.9;
+    const f=ac.createBiquadFilter();f.type='lowpass';f.frequency.value=900;master.connect(f);f.connect(ac.destination)}
+  on=!on;mb.setAttribute('aria-pressed',on);
+  mb.setAttribute('aria-label',on?'Pause background music':'Play soft background music');
+  if(on){ac.resume();let i=0;pad(i++);timer=setInterval(()=>pad(i++),6000)}else{clearInterval(timer);ac.suspend()}
+});
+</script>
+</body>
+</html>
